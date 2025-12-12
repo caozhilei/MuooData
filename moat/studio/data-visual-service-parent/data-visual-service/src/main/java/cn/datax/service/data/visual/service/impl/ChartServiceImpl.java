@@ -27,6 +27,8 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -47,6 +49,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class ChartServiceImpl extends BaseServiceImpl<ChartDao, ChartEntity> implements ChartService {
+
+	private static final Logger log = LoggerFactory.getLogger(ChartServiceImpl.class);
 
 	@Autowired
 	private ChartDao chartDao;
@@ -174,10 +178,38 @@ public class ChartServiceImpl extends BaseServiceImpl<ChartDao, ChartEntity> imp
 		if (CollUtil.isNotEmpty(groups)) {
 			sql.append(" GROUP BY ").append(groups.stream().map(s -> s.getCol()).collect(Collectors.joining(", ")));
 		}
-		List<Map<String, Object>> data = dbQuery.queryList(sql.toString());
+		String finalSql = sql.toString();
+		log.info("执行图表数据解析SQL: {}", finalSql);
+		log.info("数据源配置: host={}, port={}, dbName={}, username={}", dbSchema.getHost(), dbSchema.getPort(), dbSchema.getDbName(), dbSchema.getUsername());
+		List<Map<String, Object>> data = null;
+		try {
+			data = dbQuery.queryList(finalSql);
+			log.info("SQL执行结果: 返回{}条数据", data != null ? data.size() : 0);
+			if (data != null && data.size() > 0) {
+				log.info("第一条数据示例: {}", data.get(0));
+			} else {
+				log.warn("SQL执行返回空数据，SQL: {}", finalSql);
+				// 尝试移除数据库前缀后重新执行
+				String sqlWithoutPrefix = finalSql.replaceAll("alldata\\.", "");
+				log.info("尝试移除数据库前缀后执行SQL: {}", sqlWithoutPrefix);
+				try {
+					List<Map<String, Object>> retryData = dbQuery.queryList(sqlWithoutPrefix);
+					log.info("移除前缀后SQL执行结果: 返回{}条数据", retryData != null ? retryData.size() : 0);
+					if (retryData != null && retryData.size() > 0) {
+						data = retryData;
+						log.info("使用移除前缀后的SQL结果");
+					}
+				} catch (Exception e) {
+					log.error("移除前缀后SQL执行失败: {}", e.getMessage(), e);
+				}
+			}
+		} catch (Exception e) {
+			log.error("SQL执行失败: {}", e.getMessage(), e);
+			throw new DataException("SQL执行失败: " + e.getMessage());
+		}
 		Map<String, Object> map = new HashMap<>(2);
 		map.put("data", data);
-		map.put("sql", sql.toString());
+		map.put("sql", finalSql);
 		return map;
 	}
 }

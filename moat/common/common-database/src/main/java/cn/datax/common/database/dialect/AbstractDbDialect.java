@@ -25,7 +25,15 @@ public abstract class AbstractDbDialect implements DbDialect {
     @Override
     public String buildPaginationSql(String originalSql, long offset, long count) {
         // 获取 分页实际条数
-        StringBuilder sqlBuilder = new StringBuilder(originalSql);
+        // 如果SQL中已经包含LIMIT，先移除它
+        String sql = originalSql.trim();
+        String sqlLower = sql.toLowerCase();
+        int limitIndex = sqlLower.lastIndexOf(" limit ");
+        if (limitIndex > 0) {
+            // 找到最后一个LIMIT的位置，移除它及其后面的内容
+            sql = sql.substring(0, limitIndex).trim();
+        }
+        StringBuilder sqlBuilder = new StringBuilder(sql);
         sqlBuilder.append(" LIMIT ").append(offset).append(" , ").append(count);
         return sqlBuilder.toString();
     }

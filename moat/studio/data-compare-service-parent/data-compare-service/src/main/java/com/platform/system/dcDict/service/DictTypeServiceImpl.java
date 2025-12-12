@@ -41,7 +41,13 @@ public class DictTypeServiceImpl implements IDictTypeService
     @PostConstruct
     public void init()
     {
-        loadingDictCache();
+        try {
+            loadingDictCache();
+        } catch (Exception e) {
+            // 如果数据库表未初始化，记录警告但不阻止服务启动
+            System.err.println("警告: 字典缓存初始化失败，可能数据库表未创建: " + e.getMessage());
+            System.err.println("请执行 install/sql/alldata-v0.6.2.sql 中的 Data Compare Service 表创建脚本");
+        }
     }
 
     /**

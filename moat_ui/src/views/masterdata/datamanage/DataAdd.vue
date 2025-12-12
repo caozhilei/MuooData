@@ -159,9 +159,16 @@ export default {
         const { data } = response
         this.tableName = data.tableName
         this.columnList = data.columnList.filter(item => item.isInsert === '1')
-        // checkbox特殊处理
-        this.columnList.filter(item => item.htmlType === 'checkbox').forEach((item, index, arr) => {
-          this.$set(this.form, item.columnName, [])
+        // 初始化表单字段
+        this.columnList.forEach((item, index) => {
+          if (item.htmlType === 'checkbox') {
+            // checkbox特殊处理，初始化为空数组
+            this.$set(this.form, item.columnName, [])
+          } else {
+            // 其他字段类型，使用默认值或undefined
+            const defaultValue = item.defaultValue !== undefined && item.defaultValue !== null && item.defaultValue !== '' ? item.defaultValue : undefined
+            this.$set(this.form, item.columnName, defaultValue)
+          }
         })
       }
     })

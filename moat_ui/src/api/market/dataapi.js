@@ -9,6 +9,9 @@ export function listDataApi(data) {
 }
 
 export function pageDataApi(data) {
+  // #region agent log
+  fetch('http://127.0.0.1:7242/ingest/476bd62a-d512-4107-927d-b7b015f6e9db',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'dataapi.js:11',message:'调用pageDataApi',data:{params:data,envBaseAPI:process.env.VUE_APP_BASE_API},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+  // #endregion
   return request({
     url: '/data/market/dataApis/page',
     method: 'get',

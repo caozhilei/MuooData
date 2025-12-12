@@ -41,8 +41,12 @@ public class ModelDataServiceImpl implements ModelDataService {
         if (StrUtil.isBlank(tableName)) {
             throw new DataException("数据库表为空");
         }
-        QueryWrapper queryWrapper = SearchUtil.parseWhereSql(modelDataQuery);
+        QueryWrapper<Map<String, Object>> queryWrapper = SearchUtil.parseWhereSql(modelDataQuery);
         List<String> columns = modelDataQuery.getColumns();
+        // 如果 columns 为 null，初始化为空列表
+        if (columns == null) {
+            columns = new java.util.ArrayList<>();
+        }
         columns.addAll(SUPER_COLUMNS);
         String[] array = columns.toArray(new String[columns.size()]);
         queryWrapper.select(array);

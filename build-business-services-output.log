@@ -1,0 +1,103 @@
+==========================================
+本地构建AllData业务服务（Java 8，不包括基础服务）
+==========================================
+使用Java 8: /Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home
+Java版本:
+openjdk version "1.8.0_472"
+OpenJDK Runtime Environment (Temurin)(build 1.8.0_472-b08)
+OpenJDK 64-Bit Server VM (Temurin)(build 25.472-b08, mixed mode)
+
+Maven版本:
+Apache Maven 3.9.6 (bc0240f3c744dd6b6ec2920b3cd08dcc295161ae)
+
+==========================================
+第一步: 安装根POM (alldata) 和 moat POM...
+==========================================
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------< com.platform:alldata >------------------------
+[INFO] Building AllData 0.6.x
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.1.0:clean (default-clean) @ alldata ---
+[INFO] 
+[INFO] --- install:2.5.2:install (default-install) @ alldata ---
+[INFO] Installing /Users/andyapple/Documents/Coding/alldata/pom.xml to /Users/andyapple/.m2/repository/com/platform/alldata/0.6.x/alldata-0.6.x.pom
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.911 s
+[INFO] Finished at: 2025-12-12T14:59:00+08:00
+[INFO] ------------------------------------------------------------------------
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------------< com.platform:moat >--------------------------
+[INFO] Building Studio 0.6.x
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.1.0:clean (default-clean) @ moat ---
+[INFO] 
+[INFO] --- install:2.5.2:install (default-install) @ moat ---
+[INFO] Installing /Users/andyapple/Documents/Coding/alldata/moat/pom.xml to /Users/andyapple/.m2/repository/com/platform/moat/0.6.x/moat-0.6.x.pom
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.317 s
+[INFO] Finished at: 2025-12-12T14:59:03+08:00
+[INFO] ------------------------------------------------------------------------
+
+==========================================
+第二步: 安装common-service-api...
+==========================================
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< com.platform:common-service-api >-------------------
+[INFO] Building common-service-api 0.6.x
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.1.0:clean (default-clean) @ common-service-api ---
+[INFO] Deleting /Users/andyapple/Documents/Coding/alldata/moat/common/common-service-api/target
+[INFO] 
+[INFO] --- resources:3.0.2:resources (default-resources) @ common-service-api ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 0 resource
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- compiler:3.8.1:compile (default-compile) @ common-service-api ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 61 source files to /Users/andyapple/Documents/Coding/alldata/moat/common/common-service-api/target/classes
+[INFO] 
+[INFO] --- resources:3.0.2:testResources (default-testResources) @ common-service-api ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /Users/andyapple/Documents/Coding/alldata/moat/common/common-service-api/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.8.1:testCompile (default-testCompile) @ common-service-api ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:2.22.1:test (default-test) @ common-service-api ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.1.2:jar (default-jar) @ common-service-api ---
+[INFO] Building jar: /Users/andyapple/Documents/Coding/alldata/moat/common/common-service-api/target/common-service-api.jar
+[INFO] 
+[INFO] --- install:2.5.2:install (default-install) @ common-service-api ---
+[INFO] Installing /Users/andyapple/Documents/Coding/alldata/moat/common/common-service-api/target/common-service-api.jar to /Users/andyapple/.m2/repository/com/platform/common-service-api/0.6.x/common-service-api-0.6.x.jar
+[INFO] Installing /Users/andyapple/Documents/Coding/alldata/moat/common/common-service-api/pom.xml to /Users/andyapple/.m2/repository/com/platform/common-service-api/0.6.x/common-service-api-0.6.x.pom
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  8.327 s
+[INFO] Finished at: 2025-12-12T14:59:13+08:00
+[INFO] ------------------------------------------------------------------------
+
+==========================================
+第三步: 安装generic模块...
+==========================================
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------< com.platform:generic >------------------------
+[INFO] Building generic 0.6.x
+[INFO]   from pom.xml

@@ -226,14 +226,25 @@ export default {
   methods: {
     /** 查询数据Api列表 */
     getList() {
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/476bd62a-d512-4107-927d-b7b015f6e9db',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'DataApiList.vue:228',message:'getList调用开始',data:{queryParams:this.queryParams},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+      // #endregion
       this.loading = true
       pageDataApi(this.queryParams).then(response => {
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/476bd62a-d512-4107-927d-b7b015f6e9db',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'DataApiList.vue:231',message:'getList响应成功',data:{success:response.success,hasData:!!response.data},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+        // #endregion
         this.loading = false
         if (response.success) {
           const { data } = response
           this.dataApiList = data.data
           this.total = data.total
         }
+      }).catch(error => {
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/476bd62a-d512-4107-927d-b7b015f6e9db',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'DataApiList.vue:237',message:'getList响应失败',data:{error:error.toString(),hasResponse:!!error.response},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,B,C,D'})}).catch(()=>{});
+        // #endregion
+        this.loading = false
       })
     },
     initCols() {

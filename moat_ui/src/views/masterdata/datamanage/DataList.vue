@@ -452,14 +452,24 @@ export default {
     },
     /** 查询列表 */
     getList() {
+      // 确保 columns 和 conditions 不为 null
+      if (!this.queryParams.columns) {
+        this.queryParams.columns = []
+      }
+      if (!this.queryParams.conditions) {
+        this.queryParams.conditions = []
+      }
       this.loading = true
       pageData(this.queryParams).then(response => {
         this.loading = false
         if (response.success) {
           const { data } = response
-          this.tableDataList = data.data
-          this.total = data.total
+          this.tableDataList = data.data || []
+          this.total = data.total || 0
         }
+      }).catch(error => {
+        this.loading = false
+        console.error('查询数据失败:', error)
       })
     }
   }

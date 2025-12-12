@@ -39,11 +39,17 @@ public class JobServiceImpl implements IJobService
     @PostConstruct
     public void init() throws SchedulerException, TaskException
     {
-        scheduler.clear();
-        List<Job> jobList = jobMapper.selectJobAll();
-        for (Job job : jobList)
-        {
-            ScheduleUtils.createScheduleJob(scheduler, job);
+        try {
+            scheduler.clear();
+            List<Job> jobList = jobMapper.selectJobAll();
+            for (Job job : jobList)
+            {
+                ScheduleUtils.createScheduleJob(scheduler, job);
+            }
+        } catch (Exception e) {
+            // 如果数据库表未初始化，记录警告但不阻止服务启动
+            System.err.println("警告: 定时任务初始化失败，可能数据库表未创建: " + e.getMessage());
+            System.err.println("请执行 install/sql/alldata-v0.6.2.sql 中的 Data Compare Service 表创建脚本");
         }
     }
 

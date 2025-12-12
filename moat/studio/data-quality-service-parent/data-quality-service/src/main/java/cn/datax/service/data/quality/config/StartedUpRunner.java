@@ -44,14 +44,20 @@ public class StartedUpRunner implements ApplicationRunner {
                     "-----------------------------------------";
             System.out.println(banner);
 
-            List<ScheduleJobEntity> list = scheduleJobService.list(Wrappers.<ScheduleJobEntity>lambdaQuery().eq(ScheduleJobEntity::getStatus, DataConstant.TrueOrFalse.TRUE.getKey()));
-            if (CollUtil.isNotEmpty(list)) {
-                list.forEach(job -> {
-                    SchedulingRunnable task = new SchedulingRunnable(job.getId(), job.getBeanName(), job.getMethodName(), job.getMethodParams());
-                    cronTaskRegistrar.addCronTask(task, job.getCronExpression());
-                });
+            try {
+                // 使用字符串字段名避免 Lambda 序列化问题
+                List<ScheduleJobEntity> list = scheduleJobService.list(Wrappers.<ScheduleJobEntity>query().eq("status", DataConstant.TrueOrFalse.TRUE.getKey()));
+                if (CollUtil.isNotEmpty(list)) {
+                    list.forEach(job -> {
+                        SchedulingRunnable task = new SchedulingRunnable(job.getId(), job.getBeanName(), job.getMethodName(), job.getMethodParams());
+                        cronTaskRegistrar.addCronTask(task, job.getCronExpression());
+                    });
+                }
+                log.info("定时任务已加载完毕...");
+            } catch (Exception e) {
+                log.error("加载定时任务失败，可能数据库表尚未初始化: {}", e.getMessage());
+                log.debug("定时任务加载异常详情", e);
             }
-            log.info("定时任务已加载完毕...");
         }
     }
 }

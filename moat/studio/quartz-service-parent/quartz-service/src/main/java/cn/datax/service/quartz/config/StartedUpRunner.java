@@ -36,8 +36,14 @@ public class StartedUpRunner implements ApplicationRunner {
             System.out.println(banner);
 
             // 项目启动时，初始化定时器
-            List<QrtzJobEntity> list = qrtzJobService.list();
-            ScheduleUtil.init(list);
+            try {
+                List<QrtzJobEntity> list = qrtzJobService.list();
+                ScheduleUtil.init(list);
+            } catch (Exception e) {
+                // 如果 Quartz 数据库表未初始化，记录警告但不阻止服务启动
+                System.err.println("警告: 定时任务初始化失败，可能 Quartz 数据库表未创建: " + e.getMessage());
+                System.err.println("请执行 install/sql/alldata-v0.6.2.sql 中的 Quartz 表创建脚本");
+            }
         }
     }
 }

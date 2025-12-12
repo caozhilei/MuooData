@@ -27,6 +27,12 @@ module.exports = {
       warnings: false,
       errors: true
     },
+    // #region agent log
+    watchOptions: {
+      poll: 1000, // 使用polling模式替代fsevents，避免Node.js v20兼容性问题
+      ignored: /node_modules/
+    },
+    // #endregion
     proxy: {
       '/api': {
         target: process.env.VUE_APP_BASE_API,

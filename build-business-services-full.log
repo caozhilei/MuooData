@@ -1,0 +1,39 @@
+==========================================
+本地构建AllData业务服务（Java 8，不包括基础服务）
+==========================================
+使用Java 8: /Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home
+Java版本:
+openjdk version "1.8.0_472"
+OpenJDK Runtime Environment (Temurin)(build 1.8.0_472-b08)
+OpenJDK 64-Bit Server VM (Temurin)(build 25.472-b08, mixed mode)
+
+Maven版本:
+Apache Maven 3.9.6 (bc0240f3c744dd6b6ec2920b3cd08dcc295161ae)
+
+==========================================
+第一步: 安装根POM (alldata) 和 moat POM...
+==========================================
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------< com.platform:alldata >------------------------
+[INFO] Building AllData 0.6.x
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.1.0:clean (default-clean) @ alldata ---
+[INFO] 
+[INFO] --- install:2.5.2:install (default-install) @ alldata ---
+[INFO] Installing /Users/andyapple/Documents/Coding/alldata/pom.xml to /Users/andyapple/.m2/repository/com/platform/alldata/0.6.x/alldata-0.6.x.pom
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.898 s
+[INFO] Finished at: 2025-12-12T14:59:44+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-install-plugin:2.5.2:install (default-install) on project alldata: Failed to install artifact com.platform:alldata:pom:0.6.x: /Users/andyapple/.m2/repository/com/platform/alldata/0.6.x/alldata-0.6.x.pom.14833927137720918890.tmp: Operation not permitted -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

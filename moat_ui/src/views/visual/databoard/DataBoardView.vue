@@ -32,6 +32,9 @@
               </div>
             </div>
             <chart-panel v-if="getChartItem(item.i).visible" :key="item.i" :ref="`charts${item.i}`" :chart-schema="getChartItem(item.i).chartSchema" :chart-data="getChartItem(item.i).data" :chart-style="{height: `${item.h * 30 + 10 * (item.h - 1) - 60}px`}" />
+            <div v-else-if="getChartItem(item.i).error" :style="{height: `${item.h * 30 + 10 * (item.h - 1) - 60}px`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#909399', fontSize: '14px' }">
+              <span>{{ getChartItem(item.i).error }}</span>
+            </div>
             <div v-else :style="{height: `${item.h * 30 + 10 * (item.h - 1) - 60}px`}" />
           </el-card>
         </grid-item>
@@ -92,12 +95,23 @@ export default {
       this.$set(chart, 'loading', true)
       if (chart.chartConfig) {
         dataParser(JSON.parse(chart.chartConfig)).then(response => {
+          this.$set(chart, 'loading', false)
           if (response.success) {
             this.$set(chart, 'data', response.data.data)
             this.$set(chart, 'chartSchema', JSON.parse(chart.chartConfig))
-            this.$set(chart, 'loading', false)
             this.$set(chart, 'visible', true)
+          } else {
+            // API失败时显示错误信息
+            this.$set(chart, 'error', response.msg || '数据加载失败')
+            this.$set(chart, 'visible', false)
+            console.error('图表数据加载失败:', chart.chartName, response.msg)
           }
+        }).catch(error => {
+          // 捕获异常，避免一直loading
+          this.$set(chart, 'loading', false)
+          this.$set(chart, 'error', error.message || '数据加载异常')
+          this.$set(chart, 'visible', false)
+          console.error('图表数据加载异常:', chart.chartName, error)
         })
       } else {
         this.$set(chart, 'loading', false)

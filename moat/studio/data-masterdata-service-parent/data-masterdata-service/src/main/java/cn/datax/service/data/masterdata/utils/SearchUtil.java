@@ -7,11 +7,12 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import java.util.List;
+import java.util.Map;
 
 public class SearchUtil {
 
-    public static QueryWrapper parseWhereSql(ModelDataQuery modelDataQuery) {
-        QueryWrapper queryWrapper = new QueryWrapper();
+    public static QueryWrapper<Map<String, Object>> parseWhereSql(ModelDataQuery modelDataQuery) {
+        QueryWrapper<Map<String, Object>> queryWrapper = new QueryWrapper<>();
         List<Condition> conditionList = modelDataQuery.getConditions();
         if(CollUtil.isNotEmpty(conditionList)){
             for(Condition condition : conditionList){

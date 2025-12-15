@@ -128,9 +128,14 @@ export default {
         this.loading = false
         if (response.success) {
           const { data } = response
-          this.tableDataList = data.data
-          this.total = data.total
+          this.tableDataList = data.data || []
+          this.total = Number(data.total) || 0
         }
+      }).catch(error => {
+        this.loading = false
+        console.error('获取我参与的流程实例列表失败:', error)
+        this.tableDataList = []
+        this.total = 0
       })
     },
     /** 搜索按钮操作 */

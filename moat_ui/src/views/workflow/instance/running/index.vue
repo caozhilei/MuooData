@@ -20,6 +20,12 @@ export default {
       }
     }
   },
+  created() {
+    console.log('RunningInstance组件已创建')
+  },
+  mounted() {
+    console.log('RunningInstance组件已挂载')
+  },
   methods: {
     showCard(data) {
       Object.assign(this.options, data)

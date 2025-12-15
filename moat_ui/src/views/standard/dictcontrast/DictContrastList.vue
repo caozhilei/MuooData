@@ -250,9 +250,12 @@ export default {
   },
   created() {
     this.getDicts('data_contrast_status').then(response => {
-      if (response.success) {
-        this.statusOptions = response.data
+      if (response && response.success) {
+        this.statusOptions = response.data || []
       }
+    }).catch(error => {
+      console.error('获取状态字典失败:', error)
+      this.statusOptions = []
     })
     this.getTree()
     this.getList()
@@ -263,14 +266,29 @@ export default {
   methods: {
     getTree() {
       getContrastTree().then(response => {
-        if (response.success) {
+        if (response && response.success) {
           const { data } = response
           const tree = {}
           tree.label = '对照表'
-          tree.children = data
+          tree.children = data || []
           this.treeOptions = []
           this.treeOptions.push(tree)
+        } else {
+          console.warn('获取对照表树失败: 响应格式不正确', response)
+          this.treeOptions = []
+          const emptyTree = {}
+          emptyTree.label = '对照表'
+          emptyTree.children = []
+          this.treeOptions.push(emptyTree)
         }
+      }).catch(error => {
+        console.error('获取对照表树失败:', error)
+        this.$message.error('获取对照表树失败: ' + (error.msg || error.message || '未知错误'))
+        this.treeOptions = []
+        const emptyTree = {}
+        emptyTree.label = '对照表'
+        emptyTree.children = []
+        this.treeOptions.push(emptyTree)
       })
     },
     /** 节点单击事件 */
@@ -316,11 +334,19 @@ export default {
       this.loading = true
       pageContrastDict(this.queryParams).then(response => {
         this.loading = false
-        if (response.success) {
+        if (response && response.success) {
           const { data } = response
-          this.tableDataList = data.data
-          this.total = data.total
+          this.tableDataList = data.data || []
+          this.total = data.total || 0
+        } else {
+          this.tableDataList = []
+          this.total = 0
         }
+      }).catch(error => {
+        this.loading = false
+        console.error('获取对照字典列表失败:', error)
+        this.tableDataList = []
+        this.total = 0
       })
     },
     initCols() {

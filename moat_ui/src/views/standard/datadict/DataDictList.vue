@@ -276,9 +276,12 @@ export default {
   },
   created() {
     this.getDicts('sys_common_status').then(response => {
-      if (response.success) {
-        this.statusOptions = response.data
+      if (response && response.success) {
+        this.statusOptions = response.data || []
       }
+    }).catch(error => {
+      console.error('获取状态字典失败:', error)
+      this.statusOptions = []
     })
     this.getTree()
     this.getList()
@@ -289,14 +292,29 @@ export default {
   methods: {
     getTree() {
       listDataDictType().then(response => {
-        if (response.success) {
+        if (response && response.success) {
           const { data } = response
           const tree = {}
           tree.gbTypeName = '数据标准类别'
-          tree.children = data
+          tree.children = data || []
           this.typeOptions = []
           this.typeOptions.push(tree)
+        } else {
+          console.warn('获取数据标准类别树失败: 响应格式不正确', response)
+          this.typeOptions = []
+          const emptyTree = {}
+          emptyTree.gbTypeName = '数据标准类别'
+          emptyTree.children = []
+          this.typeOptions.push(emptyTree)
         }
+      }).catch(error => {
+        console.error('获取数据标准类别树失败:', error)
+        this.$message.error('获取数据标准类别树失败: ' + (error.msg || error.message || '未知错误'))
+        this.typeOptions = []
+        const emptyTree = {}
+        emptyTree.gbTypeName = '数据标准类别'
+        emptyTree.children = []
+        this.typeOptions.push(emptyTree)
       })
     },
     /** 节点单击事件 */
@@ -379,11 +397,19 @@ export default {
       this.loading = true
       pageDataDict(this.queryParams).then(response => {
         this.loading = false
-        if (response.success) {
+        if (response && response.success) {
           const { data } = response
-          this.tableDataList = data.data
-          this.total = data.total
+          this.tableDataList = data.data || []
+          this.total = data.total || 0
+        } else {
+          this.tableDataList = []
+          this.total = 0
         }
+      }).catch(error => {
+        this.loading = false
+        console.error('获取数据标准列表失败:', error)
+        this.tableDataList = []
+        this.total = 0
       })
     },
     initCols() {

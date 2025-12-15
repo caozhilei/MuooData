@@ -74,6 +74,12 @@
             <artifactId>data-system-service-api</artifactId>
             <version>0.6.x</version>
         </dependency>
+        <!-- Flowable工作流引擎 -->
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
 
     </dependencies>
 

@@ -115,6 +115,8 @@ export default {
       },
       // 遮罩层
       loading: true,
+      // 组件加载状态
+      componentLoaded: false,
       // 表格头
       tableColumns: [
         { prop: 'processDefinitionId', label: '流程定义ID', show: true },
@@ -144,7 +146,16 @@ export default {
     }
   },
   created() {
+    console.log('RunningInstanceList组件已创建')
     this.getList()
+  },
+  mounted() {
+    console.log('RunningInstanceList组件已挂载', {
+      tableDataList: this.tableDataList,
+      total: this.total,
+      loading: this.loading
+    })
+    this.componentLoaded = true
   },
   methods: {
     /** 查询数据集列表 */
@@ -152,11 +163,23 @@ export default {
       this.loading = true
       pageRunningInstance(this.queryParams).then(response => {
         this.loading = false
-        if (response.success) {
+        console.log('流程实例列表响应:', response)
+        if (response && response.success) {
           const { data } = response
-          this.tableDataList = data.data
-          this.total = data.total
+          console.log('流程实例数据:', data)
+          this.tableDataList = (data && data.data) ? data.data : []
+          this.total = Number(data && data.total ? data.total : 0)
+          console.log('设置后的数据:', { tableDataList: this.tableDataList, total: this.total })
+        } else {
+          console.warn('响应格式异常:', response)
+          this.tableDataList = []
+          this.total = 0
         }
+      }).catch(error => {
+        this.loading = false
+        console.error('获取流程实例列表失败:', error)
+        this.tableDataList = []
+        this.total = 0
       })
     },
     /** 搜索按钮操作 */

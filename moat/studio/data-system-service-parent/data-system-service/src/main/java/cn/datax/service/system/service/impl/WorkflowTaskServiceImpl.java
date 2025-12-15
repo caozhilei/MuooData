@@ -1,6 +1,6 @@
 package cn.datax.service.system.service.impl;
 
-import cn.datax.common.utils.SecurityUtils;
+import cn.datax.common.utils.SecurityUtil;
 import cn.datax.service.system.service.WorkflowTaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.engine.ProcessEngine;
@@ -34,7 +34,7 @@ public class WorkflowTaskServiceImpl implements WorkflowTaskService {
 
     @Override
     public Map<String, Object> pageTodo(int pageNum, int pageSize, String name) {
-        String currentUser = SecurityUtils.getCurrentUsername();
+        String currentUser = SecurityUtil.getCurrentUsername();
         // 查询已分配给当前用户的任务
         TaskQuery assignedQuery = taskService.createTaskQuery()
                 .taskAssignee(currentUser);
@@ -112,7 +112,7 @@ public class WorkflowTaskServiceImpl implements WorkflowTaskService {
 
     @Override
     public Map<String, Object> pageDone(int pageNum, int pageSize, String name) {
-        String currentUser = SecurityUtils.getCurrentUsername();
+        String currentUser = SecurityUtil.getCurrentUsername();
         HistoricTaskInstanceQuery query = processEngine.getHistoryService()
                 .createHistoricTaskInstanceQuery()
                 .taskAssignee(currentUser)

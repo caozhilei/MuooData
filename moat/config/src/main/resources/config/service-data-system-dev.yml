@@ -2,6 +2,8 @@
 spring:
   profiles:
     include: common-dev
+  main:
+    allow-bean-definition-overriding: true
   redis:
     database: 1
     host: ${common.redis.host}

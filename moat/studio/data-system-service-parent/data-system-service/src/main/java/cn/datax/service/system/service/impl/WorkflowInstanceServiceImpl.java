@@ -1,6 +1,6 @@
 package cn.datax.service.system.service.impl;
 
-import cn.datax.common.utils.SecurityUtils;
+import cn.datax.common.utils.SecurityUtil;
 import cn.datax.service.system.service.WorkflowInstanceService;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.engine.ProcessEngine;
@@ -65,7 +65,7 @@ public class WorkflowInstanceServiceImpl implements WorkflowInstanceService {
 
     @Override
     public Map<String, Object> pageMyStarted(int pageNum, int pageSize, String name) {
-        String currentUser = SecurityUtils.getCurrentUsername();
+        String currentUser = SecurityUtil.getCurrentUsername();
         HistoricProcessInstanceQuery query = processEngine.getHistoryService()
                 .createHistoricProcessInstanceQuery()
                 .startedBy(currentUser);
@@ -109,7 +109,7 @@ public class WorkflowInstanceServiceImpl implements WorkflowInstanceService {
 
     @Override
     public Map<String, Object> pageMyInvolved(int pageNum, int pageSize, String name) {
-        String currentUser = SecurityUtils.getCurrentUsername();
+        String currentUser = SecurityUtil.getCurrentUsername();
         HistoricProcessInstanceQuery query = processEngine.getHistoryService()
                 .createHistoricProcessInstanceQuery()
                 .involvedUser(currentUser);

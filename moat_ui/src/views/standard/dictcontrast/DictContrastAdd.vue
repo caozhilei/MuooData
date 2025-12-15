@@ -86,9 +86,12 @@ export default {
     console.log('data:' + this.data)
     this.form.contrastId = this.data.contrastId
     this.getDicts('data_contrast_status').then(response => {
-      if (response.success) {
-        this.statusOptions = response.data
+      if (response && response.success) {
+        this.statusOptions = response.data || []
       }
+    }).catch(error => {
+      console.error('获取状态字典失败:', error)
+      this.statusOptions = []
     })
   },
   methods: {

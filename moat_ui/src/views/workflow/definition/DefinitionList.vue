@@ -316,11 +316,20 @@ export default {
       this.loading = true
       pageDefinition(this.queryParams).then(response => {
         this.loading = false
-        if (response.success) {
+        if (response && response.success) {
           const { data } = response
-          this.tableDataList = data.data
-          this.total = data.total
+          this.tableDataList = (data && data.data) ? data.data : []
+          this.total = Number(data && data.total ? data.total : 0)
+        } else {
+          console.warn('响应格式异常:', response)
+          this.tableDataList = []
+          this.total = 0
         }
+      }).catch(error => {
+        this.loading = false
+        console.error('获取流程定义列表失败:', error)
+        this.tableDataList = []
+        this.total = 0
       })
     },
     initCols() {

@@ -214,6 +214,17 @@ spring:
               args:
                 name: codegenHystrix
                 fallbackUri: forward:/fallback
+        # 流程编排
+        - id: service-workflow
+          uri: lb://service-data-system
+          predicates:
+            - Path=/workflow/**
+          filters:
+            - SwaggerHeaderFilter
+            - name: Hystrix
+              args:
+                name: workflowHystrix
+                fallbackUri: forward:/fallback
 
         # 数据集成
         - id: service-data-dts

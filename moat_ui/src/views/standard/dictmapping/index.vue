@@ -153,14 +153,29 @@ export default {
   methods: {
     getTree() {
       getContrastTree().then(response => {
-        if (response.success) {
+        if (response && response.success) {
           const { data } = response
           const tree = {}
           tree.label = '对照表'
-          tree.children = data
+          tree.children = data || []
           this.treeOptions = []
           this.treeOptions.push(tree)
+        } else {
+          console.warn('获取对照表树失败: 响应格式不正确', response)
+          this.treeOptions = []
+          const emptyTree = {}
+          emptyTree.label = '对照表'
+          emptyTree.children = []
+          this.treeOptions.push(emptyTree)
         }
+      }).catch(error => {
+        console.error('获取对照表树失败:', error)
+        this.$message.error('获取对照表树失败: ' + (error.msg || error.message || '未知错误'))
+        this.treeOptions = []
+        const emptyTree = {}
+        emptyTree.label = '对照表'
+        emptyTree.children = []
+        this.treeOptions.push(emptyTree)
       })
     },
     /** 节点单击事件 */
@@ -174,16 +189,28 @@ export default {
       this.loading = true
       getDictMapping(this.contrastId).then(response => {
         this.loading = false
-        if (response.success) {
+        if (response && response.success) {
           const { data } = response
-          this.leftTableDataList = data.left
-          this.rightTableDataList = data.right
-          this.title = data.title
-          this.description = data.description
+          this.leftTableDataList = data.left || []
+          this.rightTableDataList = data.right || []
+          this.title = data.title || ''
+          this.description = data.description || ''
           this.$nextTick(() => {
             this.initJsPlumb()
           })
+        } else {
+          this.leftTableDataList = []
+          this.rightTableDataList = []
+          this.title = ''
+          this.description = ''
         }
+      }).catch(error => {
+        this.loading = false
+        console.error('获取字典映射数据失败:', error)
+        this.leftTableDataList = []
+        this.rightTableDataList = []
+        this.title = ''
+        this.description = ''
       })
     },
     initJsPlumb() {

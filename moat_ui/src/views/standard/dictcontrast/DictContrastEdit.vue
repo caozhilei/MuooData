@@ -80,9 +80,12 @@ export default {
   created() {
     console.log('id:' + this.data.id)
     this.getDicts('data_contrast_status').then(response => {
-      if (response.success) {
-        this.statusOptions = response.data
+      if (response && response.success) {
+        this.statusOptions = response.data || []
       }
+    }).catch(error => {
+      console.error('获取状态字典失败:', error)
+      this.statusOptions = []
     })
   },
   mounted() {
@@ -95,9 +98,14 @@ export default {
     /** 获取详情 */
     getContrastDict: function(id) {
       getContrastDict(id).then(response => {
-        if (response.success) {
-          this.form = response.data
+        if (response && response.success) {
+          this.form = response.data || {}
+        } else {
+          this.$message.error('获取对照字典详情失败')
         }
+      }).catch(error => {
+        console.error('获取对照字典详情失败:', error)
+        this.$message.error('获取对照字典详情失败')
       })
     },
     /** 提交按钮 */

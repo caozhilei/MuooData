@@ -172,11 +172,19 @@ export default {
       this.loading = true
       contrastStat(this.queryParams).then(response => {
         this.loading = false
-        if (response.success) {
+        if (response && response.success) {
           const { data } = response
-          this.tableDataList = data.data
-          this.total = data.total
+          this.tableDataList = data.data || []
+          this.total = data.total || 0
+        } else {
+          this.tableDataList = []
+          this.total = 0
         }
+      }).catch(error => {
+        this.loading = false
+        console.error('获取对照统计列表失败:', error)
+        this.tableDataList = []
+        this.total = 0
       })
     },
     initCols() {

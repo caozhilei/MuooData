@@ -83,12 +83,12 @@ dts:
     logretentiondays: 30
   executor:
     #项目里用到的只有chunjun的引用，chunjun都是.sh文件，需要自己拼shell命令
-    chunjunHome: /home/datax/datax/bin/datax.py #修改为自己的datax路径
-    chunjunjsonPath: /home/datax/datax/job/    #修改为自己的datax路径
-    chunjunlogHome: /home/datax/datax/job-log    #修改为自己的datax路径
-    dataxHome: /home/datax/datax/bin/datax.py
-    dataxjsonPath: /home/datax/datax/job/
-    dataxlogHome: /home/datax/datax/job-log
+    chunjunHome: /Users/andyapple/datax/datax/bin/datax.py #修改为自己的datax路径
+    chunjunjsonPath: /Users/andyapple/datax/datax/job/    #修改为自己的datax路径
+    chunjunlogHome: /Users/andyapple/datax/datax/job-log    #修改为自己的datax路径
+    dataxHome: /Users/andyapple/datax/datax/bin/datax.py
+    dataxjsonPath: /Users/andyapple/datax/datax/job/
+    dataxlogHome: /Users/andyapple/datax/datax/job-log
 
 datasource:
   aes:

@@ -68,8 +68,16 @@ function filterChildren(childrenMap, lastRouter = false) {
         return
       }
     }
-    if (lastRouter) {
-      el.path = lastRouter.path + '/' + el.path
+    if (lastRouter && el.path) {
+      // 确保路径正确拼接，移除开头的斜杠（如果有）以避免重复
+      const childPath = el.path.startsWith('/') ? el.path.substring(1) : el.path
+      const parentPath = lastRouter.path.endsWith('/') ? lastRouter.path.slice(0, -1) : lastRouter.path
+      // 如果子路径已经包含父路径，则不重复拼接
+      if (!childPath.startsWith(parentPath)) {
+        el.path = parentPath + '/' + childPath
+      } else {
+        el.path = childPath.startsWith('/') ? childPath : '/' + childPath
+      }
     }
     children = children.concat(el)
   })

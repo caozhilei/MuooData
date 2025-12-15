@@ -1,40 +1,76 @@
 <template>
-  <div class="login" :style="'background-image:url('+ Background +');'">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-position="left" label-width="0px" class="login-form">
-      <div style="text-align: center;"> <img :src="allDataIcon" alt=""></div>
-      <h3 class="title">
-        AllData数据中台
-      </h3>
-      <el-form-item prop="username">
-        <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">
-          <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="password">
-        <el-input v-model="loginForm.password" type="password" auto-complete="off" placeholder="密码" @keyup.enter.native="handleLogin">
-          <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="code">
-        <el-input v-model="loginForm.code" auto-complete="off" placeholder="验证码" style="width: 63%" @keyup.enter.native="handleLogin">
-          <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
-        </el-input>
-        <div class="login-code">
-          <img :src="codeUrl" @click="getCode">
+  <div class="login">
+    <!-- 动态背景 -->
+    <div class="login-background">
+      <div class="data-particles">
+        <div v-for="i in 50" :key="i" class="particle" :style="getParticleStyle(i)"></div>
+      </div>
+      <div class="grid-overlay"></div>
+      <div class="glow-effect"></div>
+    </div>
+    
+    <!-- 登录表单 -->
+    <div class="login-container">
+      <el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-position="left" label-width="0px" class="login-form">
+        <div class="logo-section">
+          <img :src="allDataIcon" alt="MuooData" class="logo-img">
+          <h3 class="title">
+            MuooData数据中台
+          </h3>
+          <p class="subtitle">基于积木方式构建的智能数据平台</p>
         </div>
-      </el-form-item>
-      <el-checkbox v-model="loginForm.rememberMe" style="margin:0 0 25px 0;">
-        记住我
-      </el-checkbox>
-      <el-form-item style="width:100%;">
-        <el-button :loading="loading" size="medium" type="primary" style="width:100%;" @click.native.prevent="handleLogin">
-          <span v-if="!loading">登 录</span>
-          <span v-else>登 录 中...</span>
-        </el-button>
-      </el-form-item>
-    </el-form>
+        <el-form-item prop="username">
+          <el-input 
+            v-model="loginForm.username" 
+            type="text" 
+            auto-complete="off" 
+            placeholder="请输入账号"
+            class="login-input">
+            <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input 
+            v-model="loginForm.password" 
+            type="password" 
+            auto-complete="off" 
+            placeholder="请输入密码" 
+            @keyup.enter.native="handleLogin"
+            class="login-input">
+            <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="code">
+          <el-input 
+            v-model="loginForm.code" 
+            auto-complete="off" 
+            placeholder="验证码" 
+            class="login-input code-input"
+            @keyup.enter.native="handleLogin">
+            <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
+          </el-input>
+          <div class="login-code">
+            <img :src="codeUrl" @click="getCode" alt="验证码">
+          </div>
+        </el-form-item>
+        <el-checkbox v-model="loginForm.rememberMe" class="remember-me">
+          记住我
+        </el-checkbox>
+        <el-form-item style="width:100%;margin-top: 20px;">
+          <el-button 
+            :loading="loading" 
+            size="medium" 
+            type="primary" 
+            class="login-button"
+            @click.native.prevent="handleLogin">
+            <span v-if="!loading">登 录</span>
+            <span v-else>登 录 中...</span>
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </div>
     <!--  底部  -->
-    <div v-if="$store.state.settings.showFooter" id="el-login-footer">
+    <div v-if="$store.state.settings.showFooter" class="login-footer">
       <span v-html="$store.state.settings.footerTxt" />
       <span v-if="$store.state.settings.caseNumber"> ⋅ </span>
       <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">{{ $store.state.settings.caseNumber }}</a>
@@ -48,15 +84,11 @@ import Config from '@/settings'
 import { getCodeImg } from '@/api/login'
 import Cookies from 'js-cookie'
 import qs from 'qs'
-import Background from '@/assets/images/background.webp'
-import allDataIcon from '@/assets/images/avatar.png'
-
 export default {
   name: 'Login',
   data() {
     return {
-      Background: Background,
-      allDataIcon: allDataIcon,
+      allDataIcon: '/muoo-icon.svg',
       codeUrl: '',
       cookiePass: '',
       loginForm: {
@@ -166,6 +198,19 @@ export default {
         })
         Cookies.remove('point')
       }
+    },
+    getParticleStyle(index) {
+      const size = Math.random() * 3 + 1
+      const left = Math.random() * 100
+      const animationDelay = Math.random() * 20
+      const animationDuration = Math.random() * 10 + 10
+      return {
+        width: size + 'px',
+        height: size + 'px',
+        left: left + '%',
+        animationDelay: animationDelay + 's',
+        animationDuration: animationDuration + 's'
+      }
     }
   }
 }
@@ -173,46 +218,274 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss">
   .login {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
   }
-  .title {
-    margin: 0 auto 30px auto;
-    text-align: center;
-    color: #707070;
+
+  .login-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .data-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .particle {
+    position: absolute;
+    background: rgba(74, 144, 226, 0.6);
+    border-radius: 50%;
+    animation: float linear infinite;
+    box-shadow: 0 0 6px rgba(74, 144, 226, 0.8);
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(100vh) translateX(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100px) translateX(100px);
+      opacity: 0;
+    }
+  }
+
+  .grid-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(74, 144, 226, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74, 144, 226, 0.1) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.3;
+    animation: gridMove 20s linear infinite;
+  }
+
+  @keyframes gridMove {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(60px, 60px);
+    }
+  }
+
+  .glow-effect {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(74, 144, 226, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.3;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+  }
+
+  .login-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 450px;
+    padding: 0 20px;
   }
 
   .login-form {
-    border-radius: 6px;
-    background: #ffffff;
-    width: 385px;
-    padding: 25px 25px 5px 25px;
-    .el-input {
-      height: 38px;
-      input {
-        height: 38px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(74, 144, 226, 0.2);
+    width: 100%;
+    padding: 50px 40px 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .logo-section {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .logo-img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 12px rgba(74, 144, 226, 0.3));
+    animation: logoFloat 3s ease-in-out infinite;
+  }
+
+  @keyframes logoFloat {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .title {
+    margin: 0 0 10px 0;
+    text-align: center;
+    color: #1a1f3a;
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #4A90E2 0%, #50C878 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    margin: 0;
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .login-input {
+    margin-bottom: 20px;
+    
+    ::v-deep .el-input__inner {
+      height: 48px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      background: #f8f9fa;
+      transition: all 0.3s;
+      font-size: 14px;
+      
+      &:focus {
+        border-color: #4A90E2;
+        background: #fff;
+        box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
       }
     }
-    .input-icon{
-      height: 39px;width: 14px;margin-left: 2px;
+  }
+
+  .code-input {
+    width: calc(65% - 10px);
+    margin-right: 10px;
+  }
+
+  .input-icon {
+    height: 48px;
+    width: 16px;
+    margin-left: 4px;
+    color: #909399;
+  }
+
+  .login-code {
+    width: 35%;
+    display: inline-block;
+    height: 48px;
+    float: right;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s;
+    
+    &:hover {
+      border-color: #4A90E2;
+      box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+    }
+    
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
   }
-  .login-tip {
-    font-size: 13px;
-    text-align: center;
-    color: #bfbfbf;
+
+  .remember-me {
+    margin: 0 0 25px 0;
+    color: #606266;
+    font-size: 14px;
   }
-  .login-code {
-    width: 33%;
-    display: inline-block;
-    height: 38px;
-    float: right;
-    img{
-      cursor: pointer;
-      vertical-align:middle
+
+  .login-button {
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+    border: none;
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+    transition: all 0.3s;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(74, 144, 226, 0.5);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  .login-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    text-align: center;
+    
+    a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      
+      &:hover {
+        color: #4A90E2;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .login-form {
+      padding: 40px 30px 30px;
+    }
+    
+    .title {
+      font-size: 24px;
+    }
+    
+    .logo-img {
+      width: 80px;
+      height: 80px;
     }
   }
 </style>

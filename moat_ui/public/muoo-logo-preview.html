@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muoo Logo 预览</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 50px;
+            font-size: 36px;
+        }
+        
+        .preview-section {
+            margin-bottom: 60px;
+        }
+        
+        .preview-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            color: #34495e;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        .logo-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo-item {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .logo-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-item h3 {
+            margin-top: 20px;
+            color: #555;
+            font-size: 16px;
+        }
+        
+        .size-variants {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .size-item {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .size-item label {
+            display: block;
+            margin-bottom: 10px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .color-swatches {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .color-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .bg-variants {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .bg-item {
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .bg-light {
+            background: #ffffff;
+        }
+        
+        .bg-dark {
+            background: #2c3e50;
+        }
+        
+        .bg-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Muoo Logo 预览</h1>
+        
+        <!-- 完整版Logo -->
+        <div class="preview-section">
+            <h2 class="section-title">完整版 Logo</h2>
+            <div class="logo-container">
+                <div class="logo-item">
+                    <img src="muoo-logo.svg" alt="Muoo Logo" style="width: 240px; height: 240px;">
+                    <h3>标准尺寸 (240×240)</h3>
+                </div>
+            </div>
+            
+            <h3 style="text-align: center; margin-top: 40px; color: #666;">不同尺寸预览</h3>
+            <div class="size-variants">
+                <div class="size-item">
+                    <label>大尺寸 (480×480)</label>
+                    <img src="muoo-logo.svg" alt="Muoo Logo Large" style="width: 480px; height: 480px;">
+                </div>
+                <div class="size-item">
+                    <label>中等尺寸 (240×240)</label>
+                    <img src="muoo-logo.svg" alt="Muoo Logo Medium" style="width: 240px; height: 240px;">
+                </div>
+                <div class="size-item">
+                    <label>小尺寸 (120×120)</label>
+                    <img src="muoo-logo.svg" alt="Muoo Logo Small" style="width: 120px; height: 120px;">
+                </div>
+                <div class="size-item">
+                    <label>图标尺寸 (64×64)</label>
+                    <img src="muoo-logo.svg" alt="Muoo Logo Icon" style="width: 64px; height: 64px;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- 图标版Logo -->
+        <div class="preview-section">
+            <h2 class="section-title">图标版 Logo</h2>
+            <div class="logo-container">
+                <div class="logo-item">
+                    <img src="muoo-icon.svg" alt="Muoo Icon" style="width: 120px; height: 120px;">
+                    <h3>标准尺寸 (120×120)</h3>
+                </div>
+            </div>
+            
+            <h3 style="text-align: center; margin-top: 40px; color: #666;">不同尺寸预览</h3>
+            <div class="size-variants">
+                <div class="size-item">
+                    <label>大尺寸 (240×240)</label>
+                    <img src="muoo-icon.svg" alt="Muoo Icon Large" style="width: 240px; height: 240px;">
+                </div>
+                <div class="size-item">
+                    <label>中等尺寸 (120×120)</label>
+                    <img src="muoo-icon.svg" alt="Muoo Icon Medium" style="width: 120px; height: 120px;">
+                </div>
+                <div class="size-item">
+                    <label>小尺寸 (64×64)</label>
+                    <img src="muoo-icon.svg" alt="Muoo Icon Small" style="width: 64px; height: 64px;">
+                </div>
+                <div class="size-item">
+                    <label>Favicon尺寸 (32×32)</label>
+                    <img src="muoo-icon.svg" alt="Muoo Icon Favicon" style="width: 32px; height: 32px;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- 不同背景预览 -->
+        <div class="preview-section">
+            <h2 class="section-title">不同背景预览</h2>
+            <div class="bg-variants">
+                <div class="bg-item bg-light">
+                    <img src="muoo-logo.svg" alt="Muoo Logo on Light" style="width: 200px; height: 200px;">
+                    <p style="margin-top: 15px; color: #666;">浅色背景</p>
+                </div>
+                <div class="bg-item bg-dark">
+                    <img src="muoo-logo.svg" alt="Muoo Logo on Dark" style="width: 200px; height: 200px;">
+                    <p style="margin-top: 15px; color: white;">深色背景</p>
+                </div>
+                <div class="bg-item bg-gradient">
+                    <img src="muoo-logo.svg" alt="Muoo Logo on Gradient" style="width: 200px; height: 200px;">
+                    <p style="margin-top: 15px; color: white;">渐变背景</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 配色方案 -->
+        <div class="preview-section">
+            <h2 class="section-title">配色方案</h2>
+            <div class="color-swatches">
+                <div class="color-swatch" style="background: linear-gradient(135deg, #4A90E2, #357ABD);">蓝色</div>
+                <div class="color-swatch" style="background: linear-gradient(135deg, #50C878, #3FA863);">绿色</div>
+                <div class="color-swatch" style="background: linear-gradient(135deg, #FF6B6B, #E55555);">红色</div>
+                <div class="color-swatch" style="background: linear-gradient(135deg, #FFA726, #F57C00);">橙色</div>
+                <div class="color-swatch" style="background: linear-gradient(135deg, #AB47BC, #8E24AA);">紫色</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

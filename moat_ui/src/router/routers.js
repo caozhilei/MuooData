@@ -86,6 +86,27 @@ export const constantRouterMap = [
         meta: { title: '个人中心' }
       }
     ]
+  },
+  {
+    path: '/sys-tools',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: 'generator/preview/:tableName',
+        component: (resolve) => require(['@/views/generator/preview'], resolve),
+        name: 'Preview',
+        meta: { title: '生成预览', activeMenu: '/sys-tools/generator' },
+        hidden: true
+      },
+      {
+        path: 'generator/config/:tableName',
+        component: (resolve) => require(['@/views/generator/config'], resolve),
+        name: 'GeneratorConfig',
+        meta: { title: '生成配置', activeMenu: '/sys-tools/generator' },
+        hidden: true
+      }
+    ]
   }
 ]
 

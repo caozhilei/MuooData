@@ -30,25 +30,45 @@ export default {
 
 <style lang="scss" scoped>
 .app-main {
-  /* 50= navbar  50  */
-  min-height: calc(100vh - 50px);
+  /* 56= navbar  56  */
+  min-height: calc(100vh - 56px);
   width: 100%;
   position: relative;
   overflow: hidden;
+  background: #f5f7fa;
 }
 
 .fixed-header+.app-main {
-  padding-top: 50px;
+  padding-top: 56px;
 }
 
 .hasTagsView {
   .app-main {
-    /* 84 = navbar + tags-view = 50 + 34 */
-    min-height: calc(100vh - 84px);
+    /* 90 = navbar + tags-view = 56 + 34 */
+    min-height: calc(100vh - 90px);
   }
 
   .fixed-header+.app-main {
-    padding-top: 84px;
+    padding-top: 90px;
+  }
+}
+
+#el-main-footer {
+  padding: 20px;
+  text-align: center;
+  color: #909399;
+  font-size: 12px;
+  background: #fff;
+  border-top: 1px solid #e4e7ed;
+  margin-top: 40px;
+  
+  a {
+    color: #606266;
+    text-decoration: none;
+    
+    &:hover {
+      color: #4A90E2;
+    }
   }
 }
 </style>

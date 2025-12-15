@@ -11,12 +11,12 @@
   </parent>
 
   <groupId>com.platform</groupId>
-  <artifactId>alldata</artifactId>
+  <artifactId>muoodata</artifactId>
   <version>0.6.x</version>
   <packaging>pom</packaging>
 
-  <name>AllData</name>
-  <url>https://github.com/alldatacenter/alldata</url>
+  <name>MuooData</name>
+  <url>https://github.com/caozhilei/MuooData</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -37,7 +37,7 @@
   </dependencies>
 
   <build>
-    <finalName>alldata-release-${project.version}</finalName>
+    <finalName>muoodata-release-${project.version}</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>

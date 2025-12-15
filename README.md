@@ -1,20 +1,20 @@
-# AllData数据中台
+# MuooData数据中台
 
-## [AllData@杭州奥零数据科技公司-官方网站](http://www.aolingdata.com)
+## [MuooData@杭州奥零数据科技公司-官方网站](http://www.aolingdata.com)
 
-## [AllData@杭州奥零数据科技公司-产品手册](https://www.yuque.com/aolingdata/product)
+## [MuooData@杭州奥零数据科技公司-产品手册](https://www.yuque.com/aolingdata/product)
 
-## [AllData@杭州奥零数据科技公司-社群商务咨询](https://docs.qq.com/doc/DVHlkSEtvVXVCdEFo)
+## [MuooData@杭州奥零数据科技公司-社群商务咨询](https://docs.qq.com/doc/DVHlkSEtvVXVCdEFo)
 
-## [AllData@杭州奥零数据科技公司-开源安装部署](https://github.com/alldatacenter/alldata/blob/master/install/install.md)
+## [MuooData@杭州奥零数据科技公司-开源安装部署](https://github.com/caozhilei/MuooData/blob/master/install/install.md)
 
-## AllData数据中台产品详细介绍
+## MuooData数据中台产品详细介绍
 ```
-【产品介绍】AllData数据中台是可定义数据中台，上层是Wujie微前端架构，底座是可插拔的后端架构，AllData数据中台以数据平台为底座，以数据中台为桥梁，以机器学习平台为中层框架，AllData以大模型应用为上游产品，提供全链路数字化解决方案。
+【产品介绍】MuooData数据中台是可定义数据中台，上层是Wujie微前端架构，底座是可插拔的后端架构，MuooData数据中台以数据平台为底座，以数据中台为桥梁，以机器学习平台为中层框架，MuooData以大模型应用为上游产品，提供全链路数字化解决方案。
 
-【核心优势】我们是一支敢为人先的技术探索研究团队，AllData产品涵盖15+大模块，36+核心功能，以及国产化+信创一体化部署版本。
+【核心优势】我们是一支敢为人先的技术探索研究团队，MuooData产品涵盖15+大模块，36+核心功能，以及国产化+信创一体化部署版本。
 
-【发布计划】杭州奥零数据科技团队预发布AllData数据中台v1.4.1版本，2025年12月30会逐步发布由AllData商业版团队集成的80+新的开源项目框架。
+【发布计划】杭州奥零数据科技团队预发布MuooData数据中台v1.4.1版本，2025年12月30会逐步发布由MuooData商业版团队集成的80+新的开源项目框架。
 
 【产品矩阵：15+大模块】
 
@@ -130,23 +130,23 @@
 
 ```
 
-## AllData发展历程
+## MuooData发展历程
 
-<img width="1400" src="https://github-readme-stats.vercel.app/api/pin/?username=alldatacenter&repo=alldata" />
+<img width="1400" src="https://github-readme-stats.vercel.app/api/pin/?username=caozhilei&repo=MuooData" />
 
-<img width="1400" src="https://starchart.cc/alldatacenter/alldata.svg" />
+<img width="1400" src="https://starchart.cc/caozhilei/MuooData.svg" />
 
-## AllData操作流程图
+## MuooData操作流程图
 <img width="1400" alt="image" src="https://github.com/user-attachments/assets/c9bfa4e6-9196-4341-97e9-d3d652ac811e">
 
-## AllData架构设计图
+## MuooData架构设计图
 <img width="1400" alt="image" src="https://github.com/user-attachments/assets/a13d2118-896a-4111-958c-3deb903c1f48">
 
-## AllData技术社区 
+## MuooData技术社区 
 
 <img width="1400" alt="image" src="https://github.com/user-attachments/assets/f91804db-9e45-4b22-958f-563bc6b9b578">
 
-## AllData正式环境(部分截图)
+## MuooData正式环境(部分截图)
 
 <img width="2072" alt="image" src="https://github.com/user-attachments/assets/019c2b8d-5af4-4c2d-9092-22e1dbd52776" />
 

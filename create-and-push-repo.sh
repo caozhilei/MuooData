@@ -6,7 +6,7 @@
 set -e
 
 REPO_NAME="MuooData"
-GITHUB_USER="andyapple"
+GITHUB_USER="caozhilei"
 
 echo "=========================================="
 echo "创建 GitHub 仓库并推送代码"

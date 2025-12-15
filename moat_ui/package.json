@@ -1,8 +1,8 @@
 {
   "name": "moat_ui",
   "version": "0.6.7",
-  "description": "AllData数据中台-前端项目",
-  "author": "AllDataFounder",
+  "description": "MuooData数据中台-前端项目",
+  "author": "MuooDataFounder",
   "license": "GPL-V3",
   "scripts": {
     "bootstrap": "npm install",

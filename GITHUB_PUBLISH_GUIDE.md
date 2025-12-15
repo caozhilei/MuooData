@@ -4,7 +4,7 @@
 
 ✅ 已完成：
 - 所有更改已提交到本地仓库
-- 远程仓库 URL 已更新为：`https://github.com/andyapple/MuooData.git`
+- 远程仓库 URL 已更新为：`https://github.com/caozhilei/MuooData.git`
 
 ## 下一步操作
 
